@@ -1,0 +1,213 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "The States REST API",
+      "description": "My States REST Project Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "States",
+        "description": "API for states in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/states": {
+        "post": {
+          "tags": [
+            "States"
+          ],
+          "description": "Create new state in system",
+          "parameters": [
+            {
+              "name": "state",
+              "in": "body",
+              "description": "State that we want to create",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New state is created",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            }
+          }
+        } 
+      },
+      "/states": {
+        "get": {
+            "tags": [
+              "States"
+            ],
+            "summary": "Get all states in system",
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/States"
+                }
+              }
+            }
+          }
+      },
+      "/states/{code}": {
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Code of the state that we want to find",
+            "type": "string"
+          }
+        ],
+        "delete": {
+          "summary": "Delete state with given code",
+          "tags": [
+            "States"
+          ],
+          "responses": {
+            "200": {
+              "description": "State is deleted",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update state with give code",
+          "tags": [
+            "States"
+          ],
+          "parameters": [
+            {
+              "name": "state",
+              "in": "body",
+              "description": "State with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/updateState"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "State is updated",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "State": {
+        "required": [
+          "name",
+          "_id",
+          "companies"
+        ],
+        "properties": {
+          "_id": {
+            "type": "integer",
+            "uniqueItems": true
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                }
+            }
+                
+          },
+          "companies": {
+            "type": "array",
+            "items": {
+                "type": "string"      
+            }
+                
+          }
+         
+        }
+      },
+      "updateState": {
+        "required": [
+          "name",
+          "companies"
+        ],
+        "properties": {
+          "isPublic": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                }
+            }
+                
+          },
+          "companies": {
+            "type": "array",
+            "items": {
+                "type": "string"      
+            }
+                
+          }
+         
+        }
+      },
+      "States": {
+        "type": "array",
+        "$ref": "#/definitions/State"
+      }
+     
+    }
+  }
+
+  
